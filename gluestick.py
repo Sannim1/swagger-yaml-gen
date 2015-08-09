@@ -1,4 +1,13 @@
 #! /usr/bin/python
+# coding:utf-8
+
+"SWAGGER YAML SPECIFICATION GENERATOR"
+
+__author__      = "Sanni Abdulmusawwir (sanniabdulmusawwir@gmail.com)"
+__copyright__   = "Copyright (C) 2015 Sanni Abdulmusawwir"
+__license__     = "GPL 3.0"
+__version__     = "0.1"
+
 import os
 
 def get_spec_file():
