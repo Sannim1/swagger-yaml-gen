@@ -1,0 +1,17 @@
+This project is aimed at glueing yaml files containing paths and definitions of a swagger specification with the rest of the specification file.
+
+STRUCTURE
+- The original specification file should be saved as 'spec.yaml' in the root directory of the project
+- Path specifications should be made in the '/paths' directory.
+- Definition specifications should be made in the '/definitions' directory.
+- Path and Definiton files should be written with proper indentation.
+- Placeholders "#$:PATHS" and "#$:DEFINITIONS" should be placed in "spec.yaml" on the lines where the paths and definitions should begin respectively (See the sample "spec.yaml" file in the root direcroy)
+
+USAGE
+- Navigate to the root directory of the project in your terminal
+- From here, run "python gluestick.py"
+- The output specification file is generated and saved as "final_spec.yaml".
+
+NB: "final-spec.yaml" is overwritten anytime "python gluestick.py" is executed
+
+Please feel free to fork/clone this repository and submit pull requests as necessary. :D
