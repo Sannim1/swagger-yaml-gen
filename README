@@ -1,4 +1,4 @@
-This project is aimed at glueing yaml files containing paths and definitions of a swagger specification with the rest of the specification file.
+This project is aimed at gluing yaml files containing paths and definitions of a swagger specification with the rest of the specification file.
 
 STRUCTURE
 - The original specification file should be saved as 'spec.yaml' in the root directory of the project
