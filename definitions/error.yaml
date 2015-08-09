@@ -1,0 +1,28 @@
+  Error:
+    description: Indicates a server error occurred.
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+  RequestError:
+    description: Indicates that a create or update failed due to parameter validation rule(s).
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      validation_errors:
+        $ref: '#/definitions/ValidationErrorCollection'
+  ValidationError:
+    description: Describes a single parameter validation failure.
+    properties:
+      field:
+        type: string
+      message:
+        type: string
+  ValidationErrorCollection:
+    description: A collection of validation errors
+    type: array
+    items:
+      $ref: '#/definitions/ValidationError'

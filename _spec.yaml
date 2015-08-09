@@ -1,0 +1,1230 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.0.1"
+  title: Content
+host: content.api.irokotv.com:8890
+schemes:
+  - https
+basePath: /
+produces:
+  - application/json
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header
+x-common-headers:
+  - response:
+    - name: x-iroko-server-id
+      in: header
+      description: ID of the server that processed the request
+      type: string
+    - name: x-iroko-response-time
+      in: header
+      description: Time it took to process this response
+      type: number
+    - name: x-iroko-signature
+      in: header
+      description: Checksum of the response body
+      type: string
+    - name: x-iroko-api-version
+      in: header
+      description: Version number of API
+      type: string
+# Describe your paths here
+paths:
+  /content/{id}:
+    get:
+      operationId: contentGet
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Gets a content object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Content
+          schema:
+            $ref: '#/definitions/Content'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: contentPut
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Updates a content object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content
+          required: true
+          type: integer
+        - name: content
+          in: body
+          description: Content object data
+          schema:
+            $ref: '#/definitions/Content'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Content'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: contentDelete
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Deletes a content object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /content:
+    get:
+      operationId: contentGetList
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Queries for matching objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of content ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching content objects
+          schema:
+            $ref: '#/definitions/ContentCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: contentPost
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Creates a new content object.
+      parameters:
+        - name: content
+          in: body
+          description: Content object data
+          schema:
+            $ref: '#/definitions/Content'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Content'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /genre/{id}:
+    get:
+      operationId: genreGet
+      tags:
+        - Content
+        - Genre
+      security:
+        - api_key: []
+      description: |
+        Gets a genre object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the genre to be retrieved
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Genre
+          schema:
+            $ref: '#/definitions/Genre'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: genrePut
+      tags:
+        - Content
+        - Genre
+      security:
+        - api_key: []
+      description: |
+        Updates a genre object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the genre to be updated
+          required: true
+          type: integer
+        - name: genre
+          in: body
+          description: Genre object data
+          schema:
+            $ref: '#/definitions/Genre'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Genre'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: genreDelete
+      tags:
+        - Content
+        - Genre
+      security:
+        - api_key: []
+      description: |
+        Deletes a genre object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the genre to be deleted
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /genre:
+    get:
+      operationId: genreGetList
+      tags:
+        - Content
+        - Genre
+      security:
+        - api_key: []
+      description: |
+        Queries for matching genre objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of genre ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching genre objects
+          schema:
+            $ref: '#/definitions/GenreCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: genrePost
+      tags:
+        - Content
+        - Genre
+      security:
+        - api_key: []
+      description: |
+        Creates a new genre object.
+      parameters:
+        - name: genre
+          in: body
+          description: Genre object data
+          schema:
+            $ref: '#/definitions/Genre'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Genre'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  #industry specification
+  /industry/{id}:
+    get:
+      operationId: industryGet
+      tags:
+        - Industry
+      security:
+        - api_key: []
+      description: |
+        Gets an Industry object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the Industry
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Industry
+          schema:
+            $ref: '#/definitions/Industry'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: industryPut
+      tags:
+        - Industry
+      security:
+        - api_key: []
+      description: |
+        Updates an industry object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the industry
+          required: true
+          type: integer
+        - name: industry
+          in: body
+          description: Industry object data
+          schema:
+            $ref: '#/definitions/Industry'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Industry'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: industryDelete
+      tags:
+        - Industry
+      security:
+        - api_key: []
+      description: |
+        Deletes an industry object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the industry
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /industry:
+    get:
+      operationId: industryGetList
+      tags:
+        - Industry
+      security:
+        - api_key: []
+      description: |
+        Queries for matching objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of industry ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching industry objects
+          schema:
+            $ref: '#/definitions/IndustryCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: industryPost
+      tags:
+        - Industry
+      security:
+        - api_key: []
+      description: |
+        Creates a new Industry object.
+      parameters:
+        - name: industry
+          in: body
+          description: Industry object data
+          schema:
+            $ref: '#/definitions/Industry'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Industry'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+#person specification
+  /person/{id}:
+    get:
+      operationId: personGet
+      tags:
+        - Person
+      security:
+        - api_key: []
+      description: |
+        Gets a person object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Person
+          schema:
+            $ref: '#/definitions/Person'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: personPut
+      tags:
+        - Person
+      security:
+        - api_key: []
+      description: |
+        Updates an person object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the person
+          required: true
+          type: integer
+        - name: person
+          in: body
+          description: Person object data
+          schema:
+            $ref: '#/definitions/Person'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Person'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: personDelete
+      tags:
+        - Person
+      security:
+        - api_key: []
+      description: |
+        Deletes an person object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the person
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /person:
+    get:
+      operationId: personGetList
+      tags:
+        - Person
+      security:
+        - api_key: []
+      description: |
+        Queries for matching objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of person ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching person objects
+          schema:
+            $ref: '#/definitions/PersonCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: personPost
+      tags:
+        - Person
+      security:
+        - api_key: []
+      description: |
+        Creates a new Person object.
+      parameters:
+        - name: person
+          in: body
+          description: Person object data
+          schema:
+            $ref: '#/definitions/Person'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Person'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+#content_part specification
+  /content_part/{id}:
+    get:
+      operationId: contentPartGet
+      tags:
+        - Content Part
+      security:
+        - api_key: []
+      description: |
+        Gets a content_part object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of
+          required: true
+          type: integer
+      responses:
+        200:
+          description: content_part
+          schema:
+            $ref: '#/definitions/ContentPart'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: contentPartPut
+      tags:
+        - content Part
+      security:
+        - api_key: []
+      description: |
+        Updates an content_part object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content_part
+          required: true
+          type: integer
+        - name: content_part
+          in: body
+          description: Content Part object data
+          schema:
+            $ref: '#/definitions/ContentPart'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/ContentPart'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: contentPartDelete
+      tags:
+        - content Part
+      security:
+        - api_key: []
+      description: |
+        Deletes an content Part object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content_part
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /content_part:
+    get:
+      operationId: contentPartGetList
+      tags:
+        - content Part
+      security:
+        - api_key: []
+      description: |
+        Queries for matching objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of content Part ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching content Part objects
+          schema:
+            $ref: '#/definitions/ContentPartCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: contentPartPost
+      tags:
+        - Content Part
+      security:
+        - api_key: []
+      description: |
+        Creates a new Content Part object.
+      parameters:
+        - name: content_part
+          in: body
+          description: Content Part object data
+          schema:
+            $ref: '#/definitions/ContentPart'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/ContentPart'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /season/{id}:
+    get:
+      operationId: seasonGet
+      tags:
+        - Content
+        - Season
+      security:
+        - api_key: []
+      description: |
+        Gets a season object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the season to be retrieved
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Season
+          schema:
+            $ref: '#/definitions/Season'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: seasonPut
+      tags:
+        - Content
+        - Season
+      security:
+        - api_key: []
+      description: |
+        Updates a season object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the season to be updated
+          required: true
+          type: integer
+        - name: season
+          in: body
+          description: Season object data
+          schema:
+            $ref: '#/definitions/Season'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Season'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: seasonDelete
+      tags:
+        - Content
+        - Season
+      security:
+        - api_key: []
+      description: |
+        Deletes a season object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the season to be deleted
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /season:
+    get:
+      operationId: seasonGetList
+      tags:
+        - Content
+        - Season
+      security:
+        - api_key: []
+      description: |
+        Queries for matching season objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of season ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching season objects
+          schema:
+            $ref: '#/definitions/SeasonCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: seasonPost
+      tags:
+        - Content
+        - Season
+      security:
+        - api_key: []
+      description: |
+        Creates a new season object.
+      parameters:
+        - name: season
+          in: body
+          description: Season object data
+          schema:
+            $ref: '#/definitions/Season'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Season'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  MetadataItem:
+    description: A single piece of Metadata
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+  MetadataItemCollection:
+    description: An array of Metadata Items
+    type: array
+    items:
+      $ref: '#/definitions/MetadataItem'
+  Metadata:
+    description: Container for Metadata
+    properties:
+      language:
+        type: string
+      data:
+        $ref: '#/definitions/MetadataItemCollection'
+  Content:
+    description: A single piece of Content
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+      metadata:
+        $ref: '#/definitions/Metadata'
+  ContentCollection:
+    description: An array of Content items
+    type: array
+    items:
+      $ref: '#/definitions/Content'
+  Genre:
+    description: A single genre
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+  GenreCollection:
+    description: An array of Genre items
+    type: array
+    items:
+      $ref: '#/definitions/Genre'
+  Industry:
+    description: A single piece of Industry
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+  IndustryCollection:
+    description: An array of Industry items
+    type: array
+    items:
+      $ref: '#/definitions/Industry'
+  Person:
+    description: A single piece of person
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+  PersonCollection:
+    description: An array of Person items
+    type: array
+    items:
+      $ref: '#/definitions/Person'
+  ContentPart:
+    description: A single piece of Content_Part
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+  ContentPartCollection:
+    description: An array of Content_Part items
+    type: array
+    items:
+      $ref: '#/definitions/ContentPart'
+  Season:
+    description: A single Season object
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+  SeasonCollection:
+    description: An array of Season items
+    type: array
+    items:
+      $ref: '#/definitions/Season'
+  Success:
+    description: Operation was successful
+    properties:
+      success:
+        type: boolean
+  Error:
+    description: Indicates a server error occurred.
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+  ValidationError:
+    description: Describes a single parameter validation failure.
+    properties:
+      field:
+        type: string
+      message:
+        type: string
+  ValidationErrorCollection:
+    description: A collection of validation errors
+    type: array
+    items:
+      $ref: '#/definitions/ValidationError'
+  RequestError:
+    description: Indicates that a create or update failed due to parameter validation rule(s).
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      validation_errors:
+        $ref: '#/definitions/ValidationErrorCollection'

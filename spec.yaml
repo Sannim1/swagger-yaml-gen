@@ -1,0 +1,43 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "0.0.1"
+  title: Content
+host: content.api.irokotv.com:8890
+schemes:
+  - https
+basePath: /
+produces:
+  - application/json
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: x-api-key
+    in: header
+x-common-headers:
+  - response:
+    - name: x-iroko-server-id
+      in: header
+      description: ID of the server that processed the request
+      type: string
+    - name: x-iroko-response-time
+      in: header
+      description: Time it took to process this response
+      type: number
+    - name: x-iroko-signature
+      in: header
+      description: Checksum of the response body
+      type: string
+    - name: x-iroko-api-version
+      in: header
+      description: Version number of API
+      type: string
+# Describe your paths here
+paths:
+  #$:PATHS
+definitions:
+  #$:DEFINITIONS

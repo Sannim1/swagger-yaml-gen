@@ -1,0 +1,5 @@
+  Success:
+    description: Operation was successful
+    properties:
+      success:
+        type: boolean

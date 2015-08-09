@@ -1,0 +1,19 @@
+  MetadataItem:
+    description: A single piece of Metadata
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+  MetadataItemCollection:
+    description: An array of Metadata Items
+    type: array
+    items:
+      $ref: '#/definitions/MetadataItem'
+  Metadata:
+    description: Container for Metadata
+    properties:
+      language:
+        type: string
+      data:
+        $ref: '#/definitions/MetadataItemCollection'

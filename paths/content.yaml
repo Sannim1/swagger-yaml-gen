@@ -1,0 +1,175 @@
+  /content/{id}:
+    get:
+      operationId: contentGet
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Gets a content object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Content
+          schema:
+            $ref: '#/definitions/Content'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      operationId: contentPut
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Updates a content object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content
+          required: true
+          type: integer
+        - name: content
+          in: body
+          description: Content object data
+          schema:
+            $ref: '#/definitions/Content'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Content'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      operationId: contentDelete
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Deletes a content object.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the content
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Success'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /content:
+    get:
+      operationId: contentGetList
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Queries for matching objects.
+      parameters:
+        - name: ids
+          in: query
+          description: comma-delimited list of content ids
+          required: true
+          type: string
+          collectionFormat: csv
+      responses:
+        200:
+          description: Matching content objects
+          schema:
+            $ref: '#/definitions/ContentCollection'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      operationId: contentPost
+      tags:
+        - Content
+      security:
+        - api_key: []
+      description: |
+        Creates a new content object.
+      parameters:
+        - name: content
+          in: body
+          description: Content object data
+          schema:
+            $ref: '#/definitions/Content'
+          x-ignores:
+            - name: id
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/Content'
+        400:
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/RequestError'
+        401:
+          description: Unauthorized Request
+          schema:
+            $ref: '#/definitions/Error'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'

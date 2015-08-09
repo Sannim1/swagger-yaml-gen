@@ -1,0 +1,14 @@
+  Content:
+    description: A single piece of Content
+    properties:
+      id:
+        type: integer
+      createdBy:
+        type: string
+      metadata:
+        $ref: '#/definitions/Metadata'
+  ContentCollection:
+    description: An array of Content items
+    type: array
+    items:
+      $ref: '#/definitions/Content'
